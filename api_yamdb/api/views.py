@@ -150,8 +150,8 @@ class ReviewViewSet(viewsets.ModelViewSet):
     pagination_class = PageNumberPagination
 
     def get_queryset(self):
-        title_id = self.kwargs.get('title_id')
-        title = get_object_or_404(Title, id=title_id)
+        # title_id = self.kwargs.get('title_id')
+        title = get_object_or_404(Title, id=self.kwargs.get('title_id'))
         new_queryset = title.reviews.all().order_by('-pub_date')
         return new_queryset
 
@@ -169,8 +169,8 @@ class CommentViewSet(viewsets.ModelViewSet):
     ]
 
     def get_queryset(self):
-        review_id = self.kwargs.get('review_id')
-        review = get_object_or_404(Review, id=review_id)
+        # review_id = self.kwargs.get('review_id')
+        review = get_object_or_404(Review, id=self.kwargs.get('review_id'))
         new_queryset = review.comments.all().order_by('-pub_date')
         return new_queryset
 
