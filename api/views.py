@@ -1,29 +1,26 @@
-from django.core.mail import get_connection, EmailMessage
-from django.shortcuts import get_object_or_404
-from django.db.models import Avg
-from django_filters.rest_framework import DjangoFilterBackend
-from django.contrib.auth.tokens import default_token_generator
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.pagination import (
-    LimitOffsetPagination, PageNumberPagination
-)
-from rest_framework import (
-    decorators, status, filters, response, viewsets, permissions, generics
-)
-
-from reviews.models import Category, Genre, Title, Review
-from users.models import User
-from .filters import TitleFilter
-from .permissions import (
-    AdminOrReadOnly, Signup, IsAdmin, ReviewCommentPermission
-)
-from .serializers import (
-    CategorySerializer, GenreSerializer, TitleSerializer, UserSerializer,
-    UserSignupSerializer, UserGetTokenSerializer, ReviewSerializer,
-    CommentSerializer, TitleListSerializer
-)
-from .mixins import CreateDestroyListViewSet
 from django.conf import settings
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import EmailMessage, get_connection
+from django.db.models import Avg
+from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import (decorators, filters, generics, permissions,
+                            response, status, viewsets)
+from rest_framework.pagination import (LimitOffsetPagination,
+                                       PageNumberPagination)
+from rest_framework_simplejwt.tokens import RefreshToken
+from reviews.models import Category, Genre, Review, Title
+from users.models import User
+
+from .filters import TitleFilter
+from .mixins import CreateDestroyListViewSet
+from .permissions import (AdminOrReadOnly, IsAdmin, ReviewCommentPermission,
+                          Signup)
+from .serializers import (CategorySerializer, CommentSerializer,
+                          GenreSerializer, ReviewSerializer,
+                          TitleListSerializer, TitleSerializer,
+                          UserGetTokenSerializer, UserSerializer,
+                          UserSignupSerializer)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -159,7 +156,6 @@ class ReviewViewSet(viewsets.ModelViewSet):
         return new_queryset
 
     def perform_create(self, serializer):
-
         title_id = self.kwargs.get('title_id')
         title = get_object_or_404(Title, id=title_id)
         serializer.save(author=self.request.user, title=title)

@@ -1,9 +1,6 @@
 from django.contrib import admin
 
-from .models import Comment, Category, Genre, Title, Review, GenreTitle
-from django.contrib import admin
-
-from .models import Category, Genre, Title, GenreTitle
+from .models import Category, Comment, Genre, GenreTitle, Review, Title
 
 
 class CategoryAdmin(admin.ModelAdmin):
