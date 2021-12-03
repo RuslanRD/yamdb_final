@@ -152,8 +152,8 @@ class ReviewViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         title_id = self.kwargs.get('title_id')
         title = get_object_or_404(Title, id=title_id)
-        new_queryset = title.reviews.all().order_by('-pub_date')
-        return new_queryset
+        # new_queryset = title.reviews.all().order_by('-pub_date')
+        return title.reviews.all().order_by('-pub_date')
 
     def perform_create(self, serializer):
         title_id = self.kwargs.get('title_id')
@@ -170,8 +170,8 @@ class CommentViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         review_id = self.kwargs.get('review_id')
         review = get_object_or_404(Review, id=review_id)
-        new_queryset = review.comments.all().order_by('-pub_date')
-        return new_queryset
+        # new_queryset = review.comments.all().order_by('-pub_date')
+        return review.comments.all().order_by('-pub_date')
 
     def perform_create(self, serializer):
         review_id = self.kwargs.get('review_id')
