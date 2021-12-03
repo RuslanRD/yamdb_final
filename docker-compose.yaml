@@ -11,8 +11,7 @@ services:
     env_file:
       - ./.env
   web:
-    build: .
-    # image: rrd13/yamdb_final:latest
+    image: rrd13/yamdb_final:latest
     restart: always
     volumes:
       - static_value:/app/static/
