@@ -14,8 +14,6 @@ services:
     image: rrd13/yamdb_final:latest
     restart: always
     volumes:
-      - ./static/redoc.yaml:/var/html/static/redoc.yaml
-      
       - static_value:/app/static/
 
       - media_value:/app/media/
@@ -32,8 +30,6 @@ services:
       - "80:80"
 
     volumes:
-      - ./static/redoc.yaml:/var/html/static/redoc.yaml
-
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
 
       - static_value:/var/html/static/
